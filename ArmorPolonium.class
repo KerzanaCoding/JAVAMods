@@ -1,0 +1,156 @@
+package mod.Kerzana;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.common.util.EnumHelper;
+
+import net.minecraft.world.World;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.Item;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.init.MobEffects;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.Minecraft;
+
+import java.util.Random;
+
+public class Kerzana_armorPolonium {
+
+	public Kerzana_armorPolonium() {
+	}
+
+	public static Item helmet;
+	public static Item body;
+	public static Item legs;
+	public static Item boots;
+	public static Object instance;
+
+	public void load(FMLInitializationEvent event) {
+		if (event.getSide() == Side.CLIENT) {
+			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+					.register(helmet, 0, new ModelResourceLocation("TestEnvironmentMod:Poloniumarmor_head", "inventory"));
+			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+					.register(body, 0, new ModelResourceLocation("TestEnvironmentMod:Poloniumarmor_body", "inventory"));
+			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+					.register(legs, 0, new ModelResourceLocation("TestEnvironmentMod:Poloniumarmor_leggins", "inventory"));
+			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+					.register(boots, 0, new ModelResourceLocation("TestEnvironmentMod:Poloniumarmor_boots", "inventory"));
+		}
+		GameRegistry.addRecipe(new ItemStack(helmet, 1), new Object[]{"012", "345", "6X8", Character.valueOf('0'), Kerzana_poloniumIngot.block,
+				Character.valueOf('1'), Kerzana_poloniumIngot.block, Character.valueOf('2'), Kerzana_poloniumIngot.block, Character.valueOf('3'),
+				Kerzana_poloniumIngot.block, Character.valueOf('4'), Kerzana_titanIngot.block, Character.valueOf('5'),
+				Kerzana_poloniumIngot.block, Character.valueOf('6'), Kerzana_titanIngot.block, Character.valueOf('8'), Kerzana_titanIngot.block,});
+		GameRegistry.addRecipe(new ItemStack(body, 1), new Object[]{"012", "345", "678", Character.valueOf('0'), Kerzana_poloniumIngot.block,
+				Character.valueOf('1'), Kerzana_titanIngot.block, Character.valueOf('2'), Kerzana_poloniumIngot.block, Character.valueOf('3'),
+				Kerzana_poloniumIngot.block, Character.valueOf('4'), Kerzana_poloniumIngot.block, Character.valueOf('5'),
+				Kerzana_poloniumIngot.block, Character.valueOf('6'), Kerzana_poloniumIngot.block, Character.valueOf('7'),
+				Kerzana_poloniumIngot.block, Character.valueOf('8'), Kerzana_poloniumIngot.block,});
+		GameRegistry.addRecipe(new ItemStack(legs, 1), new Object[]{"012", "345", "678", Character.valueOf('0'), Kerzana_poloniumIngot.block,
+				Character.valueOf('1'), Kerzana_poloniumIngot.block, Character.valueOf('2'), Kerzana_poloniumIngot.block, Character.valueOf('3'),
+				Kerzana_poloniumIngot.block, Character.valueOf('4'), Kerzana_titanIngot.block, Character.valueOf('5'),
+				Kerzana_poloniumIngot.block, Character.valueOf('6'), Kerzana_poloniumIngot.block, Character.valueOf('7'),
+				Kerzana_titanIngot.block, Character.valueOf('8'), Kerzana_poloniumIngot.block,});
+		GameRegistry.addRecipe(new ItemStack(boots, 1), new Object[]{"0X2", "345", "678", Character.valueOf('0'), Kerzana_titanIngot.block,
+				Character.valueOf('2'), Kerzana_titanIngot.block, Character.valueOf('3'), Kerzana_poloniumIngot.block, Character.valueOf('4'),
+				Kerzana_titanIngot.block, Character.valueOf('5'), Kerzana_poloniumIngot.block, Character.valueOf('6'),
+				Kerzana_poloniumIngot.block, Character.valueOf('7'), Kerzana_titanIngot.block, Character.valueOf('8'),
+				Kerzana_poloniumIngot.block,});
+		helmet.setCreativeTab(CreativeTabs.COMBAT);
+		body.setCreativeTab(CreativeTabs.COMBAT);
+		legs.setCreativeTab(CreativeTabs.COMBAT);
+		boots.setCreativeTab(CreativeTabs.COMBAT);
+	}
+
+	public void generateNether(World world, Random random, int chunkX, int chunkZ) {
+	}
+
+	public void generateSurface(World world, Random random, int chunkX, int chunkZ) {
+	}
+
+	public int addFuel(ItemStack fuel) {
+		return 0;
+	}
+
+	public void serverLoad(FMLServerStartingEvent event) {
+	}
+
+	public void preInit(FMLPreInitializationEvent event) {
+	}
+
+	public void registerRenderers() {
+	}
+
+	static {
+		ItemArmor.ArmorMaterial enuma = EnumHelper.addArmorMaterial("ARMORPOLONIUM", "Poloniumarmor", 200, new int[]{1005, 1000, 1002, 1002}, 44,
+				null, 3.1f);
+
+		int armorPreffix = 0;
+		helmet = (new ItemArmor(enuma, armorPreffix, EntityEquipmentSlot.HEAD) {
+			public void onArmorTick(World world, EntityPlayer entity, ItemStack itemStack) {
+				int i = (int) entity.posX;
+				int j = (int) entity.posY;
+				int k = (int) entity.posZ;
+
+				if (true) {
+					if (entity instanceof EntityLivingBase)
+						((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 5));
+				}
+			}
+		}).setUnlocalizedName("Poloniumarmor_head");
+		helmet.setMaxStackSize(1);
+		body = (new ItemArmor(enuma, armorPreffix, EntityEquipmentSlot.CHEST) {
+			public void onArmorTick(World world, EntityPlayer entity, ItemStack itemStack) {
+				int i = (int) entity.posX;
+				int j = (int) entity.posY;
+				int k = (int) entity.posZ;
+
+				if (true) {
+					if (entity instanceof EntityLivingBase)
+						((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, 100, 10));
+				}
+			}
+		}).setUnlocalizedName("Poloniumarmor_body");
+		body.setMaxStackSize(1);
+		legs = (new ItemArmor(enuma, armorPreffix, EntityEquipmentSlot.LEGS) {
+			public void onArmorTick(World world, EntityPlayer entity, ItemStack itemStack) {
+				int i = (int) entity.posX;
+				int j = (int) entity.posY;
+				int k = (int) entity.posZ;
+
+				if (true) {
+					if (entity instanceof EntityLivingBase)
+						((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.SPEED, 100, 3));
+				}
+			}
+		}).setUnlocalizedName("Poloniumarmor_leggins");
+		legs.setMaxStackSize(1);
+		boots = (new ItemArmor(enuma, armorPreffix, EntityEquipmentSlot.FEET) {
+			public void onArmorTick(World world, EntityPlayer entity, ItemStack itemStack) {
+				int i = (int) entity.posX;
+				int j = (int) entity.posY;
+				int k = (int) entity.posZ;
+
+				if (true) {
+					if (entity instanceof EntityLivingBase)
+						((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.HASTE, 100, 10));
+				}
+			}
+		}).setUnlocalizedName("Poloniumarmor_boots");
+		boots.setMaxStackSize(1);
+
+		GameRegistry.registerItem(helmet, "Poloniumarmor_head");
+		GameRegistry.registerItem(body, "Poloniumarmor_body");
+		GameRegistry.registerItem(legs, "Poloniumarmor_leggins");
+		GameRegistry.registerItem(boots, "Poloniumarmor_boots");
+
+	}
+
+}
